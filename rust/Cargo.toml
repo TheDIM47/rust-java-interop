@@ -1,0 +1,14 @@
+[package]
+name = "java-interop"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+jni = "0.21"
+ryu = "1.0"
+
+[lib]
+crate-type = ["cdylib"]
+
+[build-dependencies]
+cbindgen = "0.28"
