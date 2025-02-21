@@ -18,7 +18,7 @@ Author: Michiel
 
 `Java Native Interface (JNI)` — это оригинальный встроенный метод взаимодействия `Java` с нативными библиотеками. Нативные библиотеки — это библиотеки, которые не работают в `JVM`, а вместо этого создаются для определенной операционной системы с использованием языка типа `C`, `C++` или `Rust`. `JNI` предоставляет для таких библиотек интерфейс взаимодействия со средой `Java` и доступ к ее структурам данных. [Крейт `JNI`](https://crates.io/crates/jni) предоставляет типы `Rust` для этого интерфейса, что делает работу с `JNI` в `Rust` очень удобной!
 
-![JNI!](https://github.com/TheDIM47/rust-java-interop/imagesjni.jpg "JNI")
+![JNI!](https://github.com/TheDIM47/rust-java-interop/images/jni.jpg "JNI")
 
 #### Преобразование `Double` в строку
 
@@ -133,7 +133,7 @@ pub extern "C" fn Java_golf_tweede_JniInterface_doubleToStringRyu(
 
 Теперь давайте посмотрим результаты бенчмарка. Мы превратили результаты в красивую столбчатую диаграмму для простого сравнения:
 
-![Ryu benchmark!](https://github.com/TheDIM47/rust-java-interop/imagesryu-performance.jpg "Ryu benchmark")
+![Ryu benchmark!](https://github.com/TheDIM47/rust-java-interop/images/ryu-performance.jpg "Ryu benchmark")
 
 Этот код примерно на `50%` быстрее, чем наша исходная функция `Rust`, но пока еще не приближается к производительности `Java`-кода.
 
@@ -214,7 +214,7 @@ public String doubleArrayToStringJavaBenchmark(BenchmarkState state) {
 
 Давайте посмотрим, как они себя покажут:
 
-![Ryu array!](https://github.com/TheDIM47/rust-java-interop/imagesryu-performance-double-array.jpg "Ryu array")
+![Ryu array!](https://github.com/TheDIM47/rust-java-interop/images/ryu-performance-double-array.jpg "Ryu array")
 
 Посмотрите на это! Теперь наша функция `Java JNI Rust` почти в два раза быстрее функции, написанной только на `Java`! 😎
 
@@ -226,7 +226,7 @@ public String doubleArrayToStringJavaBenchmark(BenchmarkState state) {
 
 `JNR-FFI` похожа на [`JNA`](https://github.com/java-native-access/jna), другую библиотеку `Java` для взаимодействия с нативными библиотеками. Однако `JNR-FFI` [более современная и обеспечивает превосходную производительность](https://github.com/jnr/jnr-ffi/blob/master/docs/ComparisonToSimilarProjects.md#jna-java-native-access), поэтому мы решили попробовать `JNR-FFI` вместо `JNA`.
 
-![JNR-FFI!](https://github.com/TheDIM47/rust-java-interop/imagesjnr-ffi.jpg "JNR-FFI")
+![JNR-FFI!](https://github.com/TheDIM47/rust-java-interop/images/jnr-ffi.jpg "JNR-FFI")
 
 Сначала добавим `JNR-FFI` в наш проект, включив его как зависимость `Maven` в `pom.xml` (для пользователей `Rust`: `pom.xml` для `Maven` похож на `Cargo.toml`, но в формате `XML`):
 
@@ -333,11 +333,11 @@ public static String pointerToString(Pointer pointer) {
 Теперь, когда мы исправили проблемы с памятью, давайте сравним производительность между `JNR-FFI` и `JNI`.
 Вот результаты, которые мы получили для `doubleToString`:
 
-![JNI vs JNR-FFI!](https://github.com/TheDIM47/rust-java-interop/imagesdouble-to-string-jnr.jpg "JNI vs JNR-FFI")
+![JNI vs JNR-FFI!](https://github.com/TheDIM47/rust-java-interop/images/double-to-string-jnr.jpg "JNI vs JNR-FFI")
 
 А вот результаты для `doubleArrayToString`:
 
-![JNI vs JNR-FFI array!](https://github.com/TheDIM47/rust-java-interop/imagesdouble-array-to-string-jnr.jpg "JNI vs JNR-FFI array")
+![JNI vs JNR-FFI array!](https://github.com/TheDIM47/rust-java-interop/images/double-array-to-string-jnr.jpg "JNI vs JNR-FFI array")
 
 Как видете, `JNR-FFI`, похоже, немного медленнее `JNI`. Хотя приятно, что `JNR-FFI` может взаимодействовать с интерфейсом `C` без необходимости писать специфичный для `JNI` код, это влечет за собой некоторые дополнительные накладные расходы.
 
@@ -345,7 +345,7 @@ public static String pointerToString(Pointer pointer) {
 
 Последний метод, который мы обсудим, — `Project Panama`. `Project Panama` — это новейший способ взаимодействия с нативными библиотеками `Java`, который разрабатывается в `OpenJDK`. Поскольку он все еще находится в разработке, для него требуется последняя версия `JDK`; мы используем `OpenJDK 23`. Подобно `JNR-FFI`, он использует универсальный интерфейс `C`. Однако, в отличие от `JNR-FFI`, `Project Panama` может автоматически генерировать интерфейс на стороне `Java`.
 
-![Project Paname!](https://github.com/TheDIM47/rust-java-interop/imagesproject-panama.jpg "Project Panama")
+![Project Paname!](https://github.com/TheDIM47/rust-java-interop/images/project-panama.jpg "Project Panama")
 
 Чтобы сгенерировать биндинги `Java` для нашего кода `Rust`, мы сначала генерируем файл заголовка `C` с помощью `cbindgen`. Затем мы можем использовать `jextract` для генерации интерфейса `Java` на основе заголовков `C`.
 
@@ -432,7 +432,7 @@ public static String doubleToStringRyu(double value) {
 
 Давайте посмотрим, как `Project Panama` выглядит в бенчмарках: 
 
-![Project Panama benchmark!](https://github.com/TheDIM47/rust-java-interop/imagesdouble-to-string-all.jpg "Project Panama benchmark")
+![Project Panama benchmark!](https://github.com/TheDIM47/rust-java-interop/images/double-to-string-all.jpg "Project Panama benchmark")
 
 Хотя `Project Panama` все еще намного медленнее, чем без использования нативной библиотеки, он обеспечивает значительно лучшую производительность по сравнению с `JNI` и `JNR-FFI`!
 
@@ -456,7 +456,7 @@ public static String doubleArrayToStringRyu(double[] array) {
 
 Давайте посмотрим, как функция обработки массива в `Project Panama` выглядит по сравнению с другими методами:
 
-![Project Panama array!](https://github.com/TheDIM47/rust-java-interop/imagesdouble-array-to-string-all.jpg "Project Panama array")
+![Project Panama array!](https://github.com/TheDIM47/rust-java-interop/images/double-array-to-string-all.jpg "Project Panama array")
 
 #### Заключение
 
